@@ -1,12 +1,15 @@
-# Allow all crawlers
+# SITE UNDER CONSTRUCTION - DO NOT INDEX
+# This robots.txt blocks all search engines while site is being developed
+# Remove this block when ready to launch
+
 User-agent: *
-Allow: /
+Disallow: /
 
-# Disallow authenticated pages
-Disallow: /dashboard
-Disallow: /apply
-Disallow: /applications
-Disallow: /admin
-
-# Sitemap location
-Sitemap: https://youruni.edu/sitemap-index.xml
+# NOTE: When ready to launch, replace above with:
+# User-agent: *
+# Allow: /
+# Disallow: /dashboard
+# Disallow: /apply
+# Disallow: /applications
+# Disallow: /admin
+# Sitemap: https://dev.stmik.tazkia.ac.id/sitemap-index.xml
