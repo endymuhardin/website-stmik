@@ -173,7 +173,7 @@ website-stmik/                        # Frontend-only (backend deferred)
 
 ```bash
 # Clone repository
-git clone https://github.com/endymuhardin/website-stmik.git
+git clone https://github.com/idtazkia/website-stmik.git
 cd website-stmik
 
 # Navigate to frontend

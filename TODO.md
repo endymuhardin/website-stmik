@@ -9,7 +9,7 @@
 
 | Phase | Component | Status | Progress | Details |
 |-------|-----------|--------|----------|---------|
-| **Phase 1** | Infrastructure Setup | 🔶 Partial | 40% | Frontend deployed, backend deferred |
+| **Phase 1** | Infrastructure Setup | 🔶 Partial | 60% | Frontend complete, backend deferred |
 | **Phase 2** | Backend API | ⏸️ Deferred | 0% | See `backend/TODO.md` |
 | **Phase 3** | Frontend Marketing Site | 🚧 In Progress | 30% | See `frontend/TODO.md` |
 | **Phase 4** | BFF Layer | ⏸️ Deferred | 0% | See `frontend/TODO.md` |
@@ -18,7 +18,8 @@
 | **Phase 7** | Testing & Polish | ⏸️ Not Started | 0% | Pending Phase 3 completion |
 | **Phase 8** | Launch Preparation | ⏸️ Not Started | 0% | Pending all phases |
 
-**Overall Project:** ~20% Complete
+**Overall Project:** ~23% Complete
+**Note:** Weighted average based on phase importance and completion
 
 **Legend:**
 - ✅ Complete
@@ -54,18 +55,20 @@
 
 ## 📋 Phase-by-Phase Overview
 
-### Phase 1: Infrastructure Setup (40% Complete)
-**Status:** Partial - frontend infrastructure done, backend deferred
+### Phase 1: Infrastructure Setup (60% Complete)
+**Status:** Partial - frontend infrastructure complete, backend infrastructure deferred
 
 #### ✅ Completed
-- Repository structure created
+- Repository structure created (frontend/, backend/, shared/, docs/)
 - Cloudflare Pages configured and deployed
 - Custom domain configured (dev.stmik.tazkia.ac.id)
 - Documentation created (README, CLAUDE, ARCHITECTURE, DEPLOYMENT)
+- TODOs organized (root, frontend, backend, shared)
+- Placeholder directories for backend and shared code
 
 #### ⏸️ Deferred to Later
-- VPS provisioning (when backend needed)
-- PostgreSQL setup (when backend needed)
+- VPS provisioning (when backend implementation starts)
+- PostgreSQL setup (when backend implementation starts)
 - Google OAuth setup (when authentication needed)
 
 ---
@@ -196,10 +199,10 @@ Will implement when authentication and application portal are needed.
 ## 🗓️ Timeline Summary
 
 ### Completed So Far
-- **Phase 1 (Partial):** 1 week
-- **Phase 3 (Partial):** 2 weeks
+- **Phase 1 (60%):** Repository setup, Cloudflare deployment, documentation
+- **Phase 3 (30%):** Homepage, About page, Lecturer profiles
 
-**Total Elapsed:** ~3 weeks
+**Estimated Effort So Far:** ~3 weeks
 
 ### Remaining Timeline
 

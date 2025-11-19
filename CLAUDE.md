@@ -59,13 +59,17 @@ website-stmik/
 │   │   └── locales/                  # Translation JSON files
 │   │       ├── id/common.json       # Indonesian translations
 │   │       └── en/common.json       # English translations
-│   └── astro.config.mjs             # Astro configuration
-├── backend/                           # Express.js API [Planned]
-├── shared/                            # Shared TypeScript types [Planned]
+│   ├── astro.config.mjs             # Astro configuration
+│   └── TODO.md                       # Frontend implementation tasks
+├── backend/                           # Express.js API [Deferred to Phase 2]
+│   └── TODO.md                       # Backend implementation plan
+├── shared/                            # Shared TypeScript types [Deferred to Phase 5]
+│   └── TODO.md                       # Shared code plan
 ├── docs/
 │   ├── ARCHITECTURE.md               # Technical design details
 │   └── DEPLOYMENT.md                 # Deployment guide
-└── TODO.md                            # 8-phase implementation checklist
+├── TODO.md                            # High-level project overview
+└── CLAUDE.md                          # This file
 ```
 
 ## Development Commands
