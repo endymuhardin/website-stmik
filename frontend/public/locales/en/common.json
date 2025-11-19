@@ -52,5 +52,14 @@
     "flexible_schedule": "Flexible Schedule",
     "hybrid_learning": "Hybrid Learning",
     "expert_faculty": "Expert Faculty"
+  },
+  "lecturers": {
+    "title": "Faculty Profiles",
+    "subtitle": "Experienced and competent teaching staff in their fields",
+    "description": "List of STMIK Tazkia faculty profiles",
+    "expertise": "Expertise",
+    "education": "Education",
+    "research": "Research & Publications",
+    "contact": "Contact"
   }
 }

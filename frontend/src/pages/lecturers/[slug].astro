@@ -1,0 +1,193 @@
+---
+import { getCollection } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import MarketingLayout from '../../layouts/MarketingLayout.astro';
+import Container from '../../components/Container.astro';
+import Section from '../../components/Section.astro';
+import Card from '../../components/Card.astro';
+import { getLocaleFromUrl, t } from '../../utils/i18n';
+
+export const getStaticPaths = (async () => {
+  const lecturers = await getCollection('lecturers');
+  return lecturers.map((lecturer) => ({
+    params: { slug: lecturer.slug },
+    props: { lecturer },
+  }));
+}) satisfies GetStaticPaths;
+
+const { lecturer } = Astro.props;
+const { Content } = await lecturer.render();
+
+const locale = getLocaleFromUrl(Astro.url);
+const translate = (key: string) => t(locale, key);
+---
+
+<MarketingLayout
+  title={`${lecturer.data.name} - ${translate('lecturers.title')}`}
+  description={`Profile ${lecturer.data.name} - ${lecturer.data.title}`}
+>
+  <!-- Header -->
+  <Section background="gradient" class="pt-32 pb-12">
+    <Container>
+      <div class="max-w-4xl mx-auto">
+        <div class="flex flex-col md:flex-row gap-8 items-center md:items-start">
+          <!-- Photo -->
+          <div class="flex-shrink-0">
+            {lecturer.data.photo ? (
+              <img
+                src={`${import.meta.env.BASE_URL}${lecturer.data.photo}`}
+                alt={lecturer.data.name}
+                class="w-48 h-48 rounded-full object-cover border-8 border-white shadow-lg"
+              />
+            ) : (
+              <div class="w-48 h-48 rounded-full bg-white flex items-center justify-center border-8 border-primary-100 shadow-lg">
+                <span class="text-6xl font-bold text-primary-600">
+                  {lecturer.data.name.charAt(0)}
+                </span>
+              </div>
+            )}
+          </div>
+
+          <!-- Info -->
+          <div class="flex-1 text-center md:text-left">
+            <h1 class="text-4xl font-bold text-gray-900 mb-2">
+              {lecturer.data.name}
+            </h1>
+            {lecturer.data.title && (
+              <p class="text-xl text-primary-600 font-medium mb-2">
+                {lecturer.data.title}
+              </p>
+            )}
+            {lecturer.data.position && (
+              <p class="text-lg text-gray-700 mb-4">
+                {lecturer.data.position}
+              </p>
+            )}
+
+            <!-- Contact Links -->
+            <div class="flex flex-wrap gap-3 justify-center md:justify-start">
+              {lecturer.data.email && (
+                <a
+                  href={`mailto:${lecturer.data.email}`}
+                  class="inline-flex items-center gap-2 px-4 py-2 bg-white text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                  </svg>
+                  Email
+                </a>
+              )}
+              {lecturer.data.website && (
+                <a
+                  href={lecturer.data.website}
+                  class="inline-flex items-center gap-2 px-4 py-2 bg-white text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M4.083 9h1.946c.089-1.546.383-2.97.837-4.118A6.004 6.004 0 004.083 9zM10 2a8 8 0 100 16 8 8 0 000-16zm0 2c-.076 0-.232.032-.465.262-.238.234-.497.623-.737 1.182-.389.907-.673 2.142-.766 3.556h3.936c-.093-1.414-.377-2.649-.766-3.556-.24-.56-.5-.948-.737-1.182C10.232 4.032 10.076 4 10 4zm3.971 5c-.089-1.546-.383-2.97-.837-4.118A6.004 6.004 0 0115.917 9h-1.946zm-2.003 2H8.032c.093 1.414.377 2.649.766 3.556.24.56.5.948.737 1.182.233.23.389.262.465.262.076 0 .232-.032.465-.262.238-.234.498-.623.737-1.182.389-.907.673-2.142.766-3.556zm1.166 4.118c.454-1.147.748-2.572.837-4.118h1.946a6.004 6.004 0 01-2.783 4.118zm-6.268 0C6.412 13.97 6.118 12.546 6.03 11H4.083a6.004 6.004 0 002.783 4.118z" clip-rule="evenodd" />
+                  </svg>
+                  Website
+                </a>
+              )}
+              {lecturer.data.github && (
+                <a
+                  href={`https://github.com/${lecturer.data.github}`}
+                  class="inline-flex items-center gap-2 px-4 py-2 bg-white text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                  </svg>
+                  GitHub
+                </a>
+              )}
+              {lecturer.data.linkedin && (
+                <a
+                  href={lecturer.data.linkedin}
+                  class="inline-flex items-center gap-2 px-4 py-2 bg-white text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z" clip-rule="evenodd" />
+                  </svg>
+                  LinkedIn
+                </a>
+              )}
+              {lecturer.data.youtube && (
+                <a
+                  href={lecturer.data.youtube}
+                  class="inline-flex items-center gap-2 px-4 py-2 bg-white text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                  </svg>
+                  YouTube
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Content Grid -->
+  <Section background="white">
+    <Container>
+      <div class="max-w-4xl mx-auto grid md:grid-cols-3 gap-8">
+        <!-- Main Content -->
+        <div class="md:col-span-2 space-y-8">
+          <!-- Biography/Research -->
+          <Card>
+            <div class="prose prose-lg max-w-none">
+              <Content />
+            </div>
+          </Card>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="space-y-6">
+          <!-- Expertise -->
+          <Card>
+            <h3 class="text-xl font-bold text-gray-900 mb-4">
+              {translate('lecturers.expertise')}
+            </h3>
+            <div class="flex flex-wrap gap-2">
+              {lecturer.data.expertise.map((skill) => (
+                <span class="px-3 py-1 text-sm bg-primary-50 text-primary-700 rounded-lg">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </Card>
+
+          <!-- Education -->
+          <Card>
+            <h3 class="text-xl font-bold text-gray-900 mb-4">
+              {translate('lecturers.education')}
+            </h3>
+            <div class="space-y-4">
+              {lecturer.data.education.map((edu) => (
+                <div>
+                  <p class="font-semibold text-gray-900">{edu.degree}</p>
+                  <p class="text-sm text-gray-600">{edu.institution}</p>
+                  {edu.year && (
+                    <p class="text-sm text-gray-500">{edu.year}</p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </Card>
+        </div>
+      </div>
+    </Container>
+  </Section>
+</MarketingLayout>

@@ -52,5 +52,14 @@
     "flexible_schedule": "Jadwal Fleksibel",
     "hybrid_learning": "Pembelajaran Hybrid",
     "expert_faculty": "Dosen Ahli"
+  },
+  "lecturers": {
+    "title": "Profil Dosen",
+    "subtitle": "Tim pengajar berpengalaman dan berkompeten di bidangnya",
+    "description": "Daftar profil dosen STMIK Tazkia",
+    "expertise": "Keahlian",
+    "education": "Pendidikan",
+    "research": "Penelitian & Publikasi",
+    "contact": "Kontak"
   }
 }

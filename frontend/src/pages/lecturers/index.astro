@@ -1,0 +1,84 @@
+---
+import { getCollection } from 'astro:content';
+import MarketingLayout from '../../layouts/MarketingLayout.astro';
+import Container from '../../components/Container.astro';
+import Section from '../../components/Section.astro';
+import Card from '../../components/Card.astro';
+import { getLocaleFromUrl, t } from '../../utils/i18n';
+
+const locale = getLocaleFromUrl(Astro.url);
+const translate = (key: string) => t(locale, key);
+
+// Get all lecturers and sort by order
+const allLecturers = await getCollection('lecturers');
+const lecturers = allLecturers.sort((a, b) => a.data.order - b.data.order);
+---
+
+<MarketingLayout title={translate('lecturers.title')} description={translate('lecturers.description')}>
+  <!-- Hero Section -->
+  <Section background="gradient" class="pt-32 pb-20">
+    <Container>
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          {translate('lecturers.title')}
+        </h1>
+        <p class="text-xl text-gray-600">
+          {translate('lecturers.subtitle')}
+        </p>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Lecturers Grid -->
+  <Section background="white">
+    <Container>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {lecturers.map((lecturer) => (
+          <a href={`${import.meta.env.BASE_URL}/lecturers/${lecturer.slug}`} class="group">
+            <Card hover={true} class="h-full">
+              <div class="text-center">
+                {lecturer.data.photo ? (
+                  <img
+                    src={`${import.meta.env.BASE_URL}${lecturer.data.photo}`}
+                    alt={lecturer.data.name}
+                    class="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-primary-100"
+                  />
+                ) : (
+                  <div class="w-32 h-32 rounded-full mx-auto mb-4 bg-primary-100 flex items-center justify-center border-4 border-primary-200">
+                    <span class="text-4xl font-bold text-primary-600">
+                      {lecturer.data.name.charAt(0)}
+                    </span>
+                  </div>
+                )}
+
+                <h3 class="text-xl font-bold text-gray-900 mb-1 group-hover:text-primary-600 transition-colors">
+                  {lecturer.data.name}
+                </h3>
+
+                {lecturer.data.title && (
+                  <p class="text-sm text-primary-600 font-medium mb-2">
+                    {lecturer.data.title}
+                  </p>
+                )}
+
+                {lecturer.data.position && (
+                  <p class="text-sm text-gray-600 mb-3">
+                    {lecturer.data.position}
+                  </p>
+                )}
+
+                <div class="flex flex-wrap gap-2 justify-center mt-4">
+                  {lecturer.data.expertise.slice(0, 3).map((skill) => (
+                    <span class="px-2 py-1 text-xs bg-primary-50 text-primary-700 rounded">
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </Card>
+          </a>
+        ))}
+      </div>
+    </Container>
+  </Section>
+</MarketingLayout>

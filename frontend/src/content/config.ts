@@ -27,4 +27,27 @@ const admissions = defineCollection({
   }),
 });
 
-export const collections = { programs, about, admissions };
+const lecturers = defineCollection({
+  type: 'content',
+  schema: z.object({
+    name: z.string(),
+    title: z.string(), // e.g., "Dosen Tetap", "Dosen Luar Biasa"
+    position: z.string().optional(), // e.g., "Ketua Program Studi"
+    expertise: z.array(z.string()),
+    education: z.array(z.object({
+      degree: z.string(),
+      institution: z.string(),
+      year: z.string().optional(),
+    })),
+    email: z.string().optional(),
+    phone: z.string().optional(),
+    website: z.string().optional(),
+    github: z.string().optional(),
+    linkedin: z.string().optional(),
+    youtube: z.string().optional(),
+    photo: z.string().optional(),
+    order: z.number().default(999), // For sorting
+  }),
+});
+
+export const collections = { programs, about, admissions, lecturers };
