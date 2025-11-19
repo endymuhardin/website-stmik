@@ -35,12 +35,12 @@ const lecturers = allLecturers.sort((a, b) => a.data.order - b.data.order);
     <Container>
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {lecturers.map((lecturer) => (
-          <a href={`${import.meta.env.BASE_URL}/en/lecturers/${lecturer.slug}`} class="group">
+          <a href={`/en/lecturers/${lecturer.slug}`} class="group">
             <Card hover={true} class="h-full">
               <div class="text-center">
                 {lecturer.data.photo ? (
                   <img
-                    src={`${import.meta.env.BASE_URL}${lecturer.data.photo}`}
+                    src={lecturer.data.photo}
                     alt={lecturer.data.name}
                     class="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-primary-100"
                   />

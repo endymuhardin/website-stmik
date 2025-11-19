@@ -36,7 +36,7 @@ const translate = (key: string) => t(locale, key);
           <div class="flex-shrink-0">
             {lecturer.data.photo ? (
               <img
-                src={`${import.meta.env.BASE_URL}${lecturer.data.photo}`}
+                src={lecturer.data.photo}
                 alt={lecturer.data.name}
                 class="w-48 h-48 rounded-full object-cover border-8 border-white shadow-lg"
               />
