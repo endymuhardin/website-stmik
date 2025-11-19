@@ -8,7 +8,8 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://youruni.edu', // Update with actual domain
+  site: 'https://endymuhardin.github.io',
+  base: '/website-stmik',
   i18n: {
     defaultLocale: 'id',
     locales: ['id', 'en'],
