@@ -316,6 +316,198 @@ erDiagram
 
 ---
 
+## BFF Traffic Analysis
+
+### Real-World Usage Estimation
+
+All authenticated API requests go through the BFF (Cloudflare Workers) layer. Let's analyze realistic traffic patterns.
+
+### Traffic Breakdown: 300 Registrants + 5 Admins
+
+#### Registrant Journey (30-day admission period)
+
+```
+Day 1: Account Creation
+- Create account (BFF): 1 request
+- Login (BFF): 1 request
+Total: 2 requests
+
+Days 2-5: Application Preparation
+- Daily login (BFF): 1 request
+- View form (BFF): 1 request
+- Auto-save drafts (BFF): 5 requests
+Total: 7 requests/day × 4 days = 28 requests
+
+Day 6: Application Submission
+- Login (BFF): 1 request
+- Load form (BFF): 1 request
+- Upload documents (BFF): 3 requests
+- Submit (BFF): 1 request
+Total: 6 requests
+
+Days 7-30: Status Checking
+- Login (BFF): 1 request
+- Check status (BFF): 1 request
+- View updates (BFF): 1 request
+Total: 3 requests/day × 24 days = 72 requests
+
+Total per registrant: 2 + 28 + 6 + 72 = 108 requests/30 days
+Daily average: 108 ÷ 30 = 3.6 requests/day
+```
+
+**300 Registrants:**
+- Total over 30 days: 300 × 108 = **32,400 requests**
+- Daily average: **1,080 requests/day**
+
+#### Admin Activity (Daily)
+
+```
+Per Admin per Day:
+- Morning: Login, dashboard, review 10 apps, update statuses
+  = 1 + 1 + 1 + 10 + 10 = 23 requests
+- Afternoon: Login, dashboard, review 5 apps, notifications
+  = 1 + 1 + 5 + 5 = 12 requests
+
+Total per admin: 35 requests/day
+```
+
+**5 Admins:**
+- Daily total: 5 × 35 = **175 requests/day**
+- 30-day total: **5,250 requests**
+
+### Total Traffic Summary
+
+| Scenario | Daily BFF Requests | % of Free Tier | Status |
+|----------|-------------------|----------------|--------|
+| **Average Day** | 1,255 | **1.3%** | ✅ Very Safe |
+| **Peak Day** (50 simultaneous submissions) | 1,425 | **1.4%** | ✅ Very Safe |
+| **10x Traffic Spike** | 14,250 | **14.3%** | ✅ Safe |
+| **Quiet Period** (post-admission) | 150 | **0.2%** | ✅ Very Safe |
+
+### Scalability Analysis
+
+| User Count | Daily BFF Requests | % of Free Tier | Monthly Cost | Status |
+|------------|-------------------|----------------|--------------|--------|
+| **300 registrants** | 1,255 | 1.3% | $0 | ✅ Very Safe |
+| **1,000 registrants** | 3,775 | 3.8% | $0 | ✅ Very Safe |
+| **3,000 registrants** | 11,500 | 11.5% | $0 | ✅ Safe |
+| **10,000 registrants** | 38,000 | 38% | $0 | ✅ Safe |
+| **27,000 registrants** | 99,000 | 99% | $0 | ⚠️ Near Limit |
+| **30,000+ registrants** | 110,000+ | 110%+ | $5/mo* | ✅ Upgrade Available |
+
+*Cloudflare Workers Paid: $5/month for 10 million requests
+
+### Important: Static vs Dynamic Traffic
+
+```mermaid
+graph LR
+    subgraph "Website Traffic Distribution"
+        A[1000 Daily Visitors]
+        A -->|95%| B[950 visitors<br/>Browse Marketing Pages<br/>Static Content]
+        A -->|5%| C[50 visitors<br/>Login & Apply<br/>BFF Layer]
+    end
+
+    B -->|NO BFF| D[Cloudflare Pages CDN<br/>UNLIMITED bandwidth<br/>$0 cost]
+    C -->|Through BFF| E[Cloudflare Workers<br/>100k req/day limit<br/>Currently 1.3% used]
+```
+
+**Key Insight:**
+- **Marketing pages** (programs, about, contact): Unlimited traffic, $0 cost, NO BFF
+- **Application portal** (login, submit, status): Only active applicants, goes through BFF
+- **Estimated 95%+ of traffic** doesn't touch BFF at all
+
+### Bandwidth Analysis
+
+**BFF Request Size:**
+```
+Average authenticated request:
+- Cookie: ~200 bytes
+- Headers: ~500 bytes
+- Request body (POST): ~5 KB
+- Response body: ~10 KB
+Total: ~15 KB per request
+
+Daily bandwidth (1,255 requests):
+1,255 × 15 KB = 18.8 MB/day
+
+Monthly bandwidth:
+18.8 MB × 30 = 564 MB/month
+```
+
+**Cloudflare Workers:** CPU time matters, not bandwidth
+**Cloudflare Pages (static):** Unlimited bandwidth ✅
+
+### Optimization Strategies (If Needed)
+
+#### 1. Caching Strategy
+```javascript
+// Cache application status for 5 minutes
+const cacheKey = `status:${userId}`;
+const cached = await cache.get(cacheKey);
+
+if (cached) return cached; // Saves BFF request
+
+const fresh = await fetchFromBackend();
+await cache.put(cacheKey, fresh, { expirationTtl: 300 });
+return fresh;
+```
+
+**Impact:**
+- Status checks: 72 → 12 requests/user (83% reduction)
+- Total traffic: 1,255 → 550 requests/day
+- **New usage: 0.55% of free tier**
+
+#### 2. Request Batching
+```javascript
+// Before: Multiple BFF calls
+GET /api/user/profile       // 1 request
+GET /api/applications       // 1 request
+GET /api/notifications      // 1 request
+
+// After: Single BFF call
+GET /api/dashboard          // 1 request (returns all data)
+```
+
+**Impact:** ~30% reduction in BFF requests
+
+#### 3. Monitoring & Alerts
+
+Set up Cloudflare Workers analytics to track:
+- Daily request count
+- Request patterns by endpoint
+- Alert if approaching 50% of daily limit (50,000 requests)
+
+### Cost Breakdown
+
+| Component | Traffic Type | Daily Volume | Limit | Cost |
+|-----------|-------------|--------------|-------|------|
+| **Static Pages** | Marketing content | 100,000+ page views | Unlimited | **$0** |
+| **BFF Workers** | Authenticated API | 1,255 requests | 100k/day | **$0** |
+| **Backend API** | Database queries | 1,255 requests | VPS capacity | **$5-10/mo** |
+| **Total** | | | | **$5-10/mo** |
+
+### When to Upgrade
+
+You'll need to upgrade to Cloudflare Workers Paid ($5/month) when:
+
+- **Daily requests exceed 100,000** (sustained)
+- **User count reaches ~27,000 registrants**
+- **You want additional features** (longer CPU time, KV storage, Durable Objects)
+
+At that scale, $5/month is negligible compared to the value delivered.
+
+### Verdict for 300 Registrants + 5 Admins
+
+✅ **You're using only 1.3% of the free tier**
+✅ **98.7% buffer for traffic spikes**
+✅ **Even 10x growth keeps you under 15% usage**
+✅ **Zero cost risk - hard limits prevent overages**
+✅ **Could scale to 3,000 users and still be at 11.5%**
+
+**Conclusion: No need to worry about BFF traffic limits for your use case.**
+
+---
+
 ## Content Management
 
 ### Marketing Content (Static)
