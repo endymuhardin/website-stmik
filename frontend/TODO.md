@@ -1,563 +1,172 @@
-# Frontend - Implementation TODO
+# Frontend TODO - Marketing Site Phase
 
-## Phase 1: Project Setup & Configuration
+## Current Status
+**Phase 3: Marketing Site - 30% Complete**
 
-### Initialize Project
-- [x] Move logo to `public/images/`
-- [ ] Initialize Astro project
-- [ ] Configure TypeScript (strict mode)
-- [ ] Install and configure Tailwind CSS
-- [ ] Set up Prettier and ESLint
-- [ ] Configure `astro.config.mjs`
-- [ ] Configure `tailwind.config.mjs`
-- [ ] Create `.dev.vars.example` for environment variables
+### ✅ Completed
+- Astro 5.x + Tailwind CSS 4.x setup
+- Custom i18n system (Indonesian/English)
+- BaseLayout and MarketingLayout
+- Reusable components (Card, Button, Container, Section, Header, Footer, Navigation)
+- Homepage (ID/EN)
+- About page (ID/EN)
+- Lecturer profiles (ID/EN) with content collections
+- Responsive design
+- SEO optimization (meta tags, sitemap, Open Graph)
+- Cloudflare Pages deployment
 
-### Directory Structure
-- [ ] Create `src/content/` directory structure
-  - [ ] `src/content/programs/`
-  - [ ] `src/content/about/`
-  - [ ] `src/content/admissions/`
-  - [ ] `src/content/config.ts` (content collections schema)
-- [ ] Create `src/pages/` directory
-- [ ] Create `src/layouts/` directory
-- [ ] Create `src/components/` directory
-- [ ] Create `src/scripts/` directory
-- [ ] Create `src/styles/` directory
-- [ ] Create `functions/` directory (Cloudflare Workers)
-
-### Dependencies
-- [ ] Install Astro core packages
-- [ ] Install Tailwind CSS and plugins
-- [ ] Install Astro integrations:
-  - [ ] `@astrojs/tailwind`
-  - [ ] `@astrojs/mdx` (for enhanced markdown)
-  - [ ] `@astrojs/sitemap` (for SEO)
-- [ ] Install TypeScript types:
-  - [ ] `@types/node`
-- [ ] Install utility libraries:
-  - [ ] `clsx` (conditional classnames)
-  - [ ] `date-fns` (date formatting)
-
----
-
-## Phase 2: Layouts & Base Components
-
-### Layouts
-- [ ] Create `BaseLayout.astro`
-  - [ ] HTML structure
-  - [ ] Meta tags (SEO)
-  - [ ] Google Analytics (optional)
-  - [ ] Font loading
-- [ ] Create `MarketingLayout.astro`
-  - [ ] Header component
-  - [ ] Footer component
-  - [ ] Navigation
-- [ ] Create `DashboardLayout.astro`
-  - [ ] Authenticated layout
-  - [ ] Sidebar navigation
-  - [ ] User menu
-
-### Base Components
-- [ ] Create `Header.astro`
-  - [ ] Logo
-  - [ ] Navigation menu
-  - [ ] Mobile menu toggle
-  - [ ] Login/Register buttons (if not logged in)
-  - [ ] User dropdown (if logged in)
-- [ ] Create `Footer.astro`
-  - [ ] Campus information
-  - [ ] Quick links
-  - [ ] Social media links
-  - [ ] Copyright
-- [ ] Create `Navigation.astro`
-  - [ ] Desktop menu
-  - [ ] Mobile hamburger menu
-  - [ ] Active link highlighting
-
-### Utility Components
-- [ ] Create `Button.astro` (reusable button)
-- [ ] Create `Card.astro` (reusable card)
-- [ ] Create `Container.astro` (content container)
-- [ ] Create `Section.astro` (page section wrapper)
+### 🚧 Next Steps (Phase 3)
+- [ ] Programs listing page
+- [ ] Programs detail pages
+- [ ] Contact page with form
+- [ ] Admissions information page
+- [ ] News/blog system
 
 ---
 
 ## Phase 3: Marketing Pages (Static Content)
 
-### Content Files (Markdown)
-- [ ] Write `src/content/programs/computer-science.md`
-- [ ] Write `src/content/programs/business.md`
-- [ ] Write `src/content/programs/engineering.md`
-- [ ] Write `src/content/about/history.md`
-- [ ] Write `src/content/about/vision-mission.md`
-- [ ] Write `src/content/about/facilities.md`
-- [ ] Write `src/content/admissions/requirements.md`
-- [ ] Write `src/content/admissions/process.md`
-- [ ] Write `src/content/admissions/calendar.md`
+### Content Collections
+- [x] Lecturers collection
+- [ ] Programs collection (content exists, pages needed)
+- [ ] Admissions collection (content exists, pages needed)
+- [ ] About collection (content exists, pages needed)
+- [ ] News/blog collection
 
-### Homepage
-- [ ] Create `src/pages/index.astro`
-  - [ ] Hero section with CTA
-  - [ ] Featured programs
-  - [ ] Why choose us section
-  - [ ] Latest news/updates
-  - [ ] Quick stats (students, programs, etc.)
-  - [ ] Call-to-action (Apply Now)
-
-### Programs
+### Programs Pages
 - [ ] Create `src/pages/programs/index.astro`
-  - [ ] List all programs
-  - [ ] Filter by type/duration
+  - [ ] List all programs from content collection
+  - [ ] Filter/search functionality
   - [ ] Program cards with images
 - [ ] Create `src/pages/programs/[slug].astro`
-  - [ ] Program details
+  - [ ] Program details from markdown
   - [ ] Curriculum overview
   - [ ] Career prospects
   - [ ] Admission requirements
-  - [ ] Apply CTA button
+  - [ ] CTA: "Apply Now" button
+- [ ] Create English versions: `src/pages/en/programs/...`
 
-### Static Pages
-- [ ] Create `src/pages/about.astro`
-  - [ ] Campus history
-  - [ ] Vision & mission
-  - [ ] Leadership team
-  - [ ] Facilities
-- [ ] Create `src/pages/admissions.astro`
-  - [ ] Admission process
-  - [ ] Requirements
-  - [ ] Important dates
-  - [ ] FAQ
+### Contact Page
 - [ ] Create `src/pages/contact.astro`
-  - [ ] Contact form
-  - [ ] Campus location (map)
-  - [ ] Phone/email/address
-  - [ ] Social media
+  - [ ] Contact information (phone, email, address)
+  - [ ] Embedded map (Google Maps)
+  - [ ] Social media links
+  - [ ] Contact form (static - form submission deferred to Phase 2)
+  - [ ] Office hours
+- [ ] Create `src/pages/en/contact.astro`
 
-### Components for Marketing Pages
-- [ ] Create `Hero.astro` (hero section)
-- [ ] Create `ProgramCard.astro` (program display)
-- [ ] Create `FeatureCard.astro` (feature highlights)
-- [ ] Create `StatsSection.astro` (statistics display)
-- [ ] Create `Testimonial.astro` (student testimonials)
-- [ ] Create `CTA.astro` (call-to-action section)
+### Admissions Page
+- [ ] Create `src/pages/admissions.astro`
+  - [ ] Admission requirements
+  - [ ] Application process steps
+  - [ ] Important dates/calendar
+  - [ ] Required documents list
+  - [ ] FAQ section
+  - [ ] CTA: "Apply Now" (links to application portal when ready)
+- [ ] Create `src/pages/en/admissions.astro`
 
----
-
-## Phase 4: Authentication Pages
-
-### Login Page
-- [ ] Create `src/pages/login.astro`
-  - [ ] Email/password form
-  - [ ] "Sign in with Google" button
-  - [ ] "Forgot password" link
-  - [ ] "Don't have an account? Register" link
-  - [ ] Form validation (client-side)
-  - [ ] Error message display
-  - [ ] Loading state
-
-### Register Page
-- [ ] Create `src/pages/register.astro`
-  - [ ] Registration form (name, email, password)
-  - [ ] "Sign up with Google" button
-  - [ ] Password strength indicator
-  - [ ] Terms & conditions checkbox
-  - [ ] "Already have an account? Login" link
-  - [ ] Form validation
-  - [ ] Success/error messages
-
-### Client-Side Auth Utilities
-- [ ] Create `src/scripts/auth.ts`
-  - [ ] `login(email, password)` function
-  - [ ] `register(name, email, password)` function
-  - [ ] `loginWithGoogle()` function
-  - [ ] `logout()` function
-  - [ ] `getCurrentUser()` function
-  - [ ] `isAuthenticated()` function
-- [ ] Create `src/scripts/api.ts`
-  - [ ] API client wrapper
-  - [ ] Error handling
-  - [ ] Automatic token inclusion (via cookies)
-
----
-
-## Phase 5: Application Portal (Authenticated Pages)
-
-### Dashboard
-- [ ] Create `src/pages/dashboard.astro`
-  - [ ] Welcome message with user name
-  - [ ] Application status summary
-  - [ ] Quick actions (Apply, View Applications)
-  - [ ] Profile completion progress
-  - [ ] Notifications/updates
-
-### Application Form
-- [ ] Create `src/pages/apply.astro`
-  - [ ] Multi-step form wizard
-  - [ ] Step 1: Program selection
-  - [ ] Step 2: Personal information
-  - [ ] Step 3: Educational background
-  - [ ] Step 4: Document upload
-  - [ ] Step 5: Review and submit
-  - [ ] Auto-save draft functionality
-  - [ ] Form validation (client-side)
-  - [ ] File upload with preview
-  - [ ] Progress indicator
-  - [ ] Submit confirmation modal
-
-### Application Status
-- [ ] Create `src/pages/applications.astro`
-  - [ ] List user's applications
-  - [ ] Status badges (pending, approved, rejected)
-  - [ ] View application details
-  - [ ] Download submitted documents
-  - [ ] Edit draft applications
-
-### Components for Application Portal
-- [ ] Create `ApplicationForm.astro`
-  - [ ] Form steps
-  - [ ] Field validation
-  - [ ] File upload component
-- [ ] Create `StatusBadge.astro`
-  - [ ] Color-coded status (pending/approved/rejected)
-- [ ] Create `FileUpload.astro`
-  - [ ] Drag & drop upload
-  - [ ] File preview
-  - [ ] Delete uploaded file
-  - [ ] File size/type validation
-- [ ] Create `FormStep.astro`
-  - [ ] Step indicator
-  - [ ] Previous/Next buttons
-  - [ ] Validation messages
-
-### Form Validation
-- [ ] Create `src/scripts/form-validation.ts`
-  - [ ] Email validation
-  - [ ] Password strength check
-  - [ ] Required field validation
-  - [ ] File type/size validation
-  - [ ] Display error messages
-
----
-
-## Phase 6: Admin Interface
-
-### Application Review
-- [ ] Create `src/pages/admin/applications.astro`
-  - [ ] List all applications
-  - [ ] Filter by status/program/date
-  - [ ] Search by name/email
+### News/Blog System
+- [ ] Create content collection for news/blog posts
+- [ ] Create `src/pages/news/index.astro`
+  - [ ] List all news posts
   - [ ] Pagination
-  - [ ] Quick actions (Approve/Reject)
-- [ ] Create `src/pages/admin/applications/[id].astro`
-  - [ ] Full application details
-  - [ ] Applicant information
-  - [ ] Uploaded documents viewer
-  - [ ] Decision form (Approve/Reject with notes)
-  - [ ] Activity log
-
-### User Management
-- [ ] Create `src/pages/admin/users.astro`
-  - [ ] List all users
-  - [ ] Filter by role (registrant/staff)
-  - [ ] Search users
-  - [ ] Edit user roles
-  - [ ] Deactivate users
-
-### Admin Components
-- [ ] Create `DataTable.astro`
-  - [ ] Sortable columns
-  - [ ] Pagination
-  - [ ] Row selection
-- [ ] Create `FilterBar.astro`
-  - [ ] Status filter
-  - [ ] Date range filter
-  - [ ] Program filter
-- [ ] Create `ActionButtons.astro`
-  - [ ] Approve/Reject buttons
-  - [ ] Confirm modal
+  - [ ] Categories/tags
+  - [ ] Search functionality
+- [ ] Create `src/pages/news/[slug].astro`
+  - [ ] Blog post detail page
+  - [ ] Metadata (author, date, category)
+  - [ ] Related posts
+- [ ] Create English versions: `src/pages/en/news/...`
 
 ---
 
-## Phase 7: BFF Layer (Cloudflare Workers)
+## Phase 3b: UI/UX Enhancements (Optional)
 
-### Authentication Handlers
-- [ ] Create `functions/auth/login.ts`
-  - [ ] Validate input
-  - [ ] Call backend API
-  - [ ] Set HttpOnly cookie
-  - [ ] Return user data (no token)
-- [ ] Create `functions/auth/register.ts`
-  - [ ] Validate input
-  - [ ] Call backend API
-  - [ ] Auto-login after registration
-- [ ] Create `functions/auth/google/login.ts`
-  - [ ] Generate Google OAuth URL
-  - [ ] Redirect to Google
-- [ ] Create `functions/auth/google/callback.ts`
-  - [ ] Exchange code for tokens
-  - [ ] Verify Google ID token
-  - [ ] Call backend to create/update user
-  - [ ] Set HttpOnly cookie
-  - [ ] Redirect to dashboard
-- [ ] Create `functions/auth/logout.ts`
-  - [ ] Clear cookie
-  - [ ] Return success
+### Performance Optimizations
+- [ ] Optimize images with Astro Image component
+- [ ] Lazy loading for images
+- [ ] Preload critical fonts
+- [ ] Code splitting for heavy components
 
-### Application Handlers
-- [ ] Create `functions/applications/submit.ts`
-  - [ ] Extract token from cookie
-  - [ ] Forward to backend API
-  - [ ] Return response
-- [ ] Create `functions/applications/list.ts`
-  - [ ] Get user's applications
-  - [ ] Forward to backend
-- [ ] Create `functions/applications/status.ts`
-  - [ ] Get application status
-  - [ ] Forward to backend
+### Accessibility Improvements
+- [ ] ARIA labels for interactive elements
+- [ ] Keyboard navigation testing
+- [ ] Screen reader testing
+- [ ] Color contrast verification (WCAG AA)
+- [ ] Focus indicators
 
-### User Handlers
-- [ ] Create `functions/users/me.ts`
-  - [ ] Get current user info
-  - [ ] Extract from cookie
-  - [ ] Call backend
-- [ ] Create `functions/users/update.ts`
-  - [ ] Update user profile
-  - [ ] Forward to backend
-
-### File Upload
-- [ ] Create `functions/files/upload.ts`
-  - [ ] Handle multipart/form-data
-  - [ ] Validate file type/size
-  - [ ] Upload to storage (R2 or VPS)
-  - [ ] Return file URL
-
-### BFF Middleware
-- [ ] Create `functions/_middleware/auth.ts`
-  - [ ] Check if token exists in cookie
-  - [ ] Return 401 if not authenticated
-- [ ] Create `functions/_middleware/cors.ts`
-  - [ ] Set CORS headers
-  - [ ] Handle OPTIONS requests
-- [ ] Create `functions/_middleware/error-handler.ts`
-  - [ ] Catch errors
-  - [ ] Return formatted error response
-  - [ ] Log errors
-
-### BFF Utilities
-- [ ] Create cookie parser
-- [ ] Create token extractor
-- [ ] Create API client (to backend)
+### SEO Enhancements
+- [ ] Add structured data (JSON-LD)
+  - [ ] Organization schema
+  - [ ] EducationalOrganization schema
+  - [ ] Course schema for programs
+- [ ] Optimize meta descriptions per page
+- [ ] Add breadcrumb navigation
+- [ ] Improve internal linking
 
 ---
 
-## Phase 8: Styling & UI Polish
+## Phase 4-5: Authentication & Application Portal (Deferred)
 
-### Tailwind Configuration
-- [ ] Configure custom colors (brand colors)
-- [ ] Configure custom fonts
-- [ ] Configure breakpoints
-- [ ] Configure spacing scale
-- [ ] Add custom utilities
+**Status:** Not started - waiting for backend (Phase 2)
 
-### Global Styles
-- [ ] Create `src/styles/global.css`
-  - [ ] Tailwind directives
-  - [ ] Custom CSS variables
-  - [ ] Typography styles
-  - [ ] Form styles
-  - [ ] Animation keyframes
+These features require backend API:
+- Login/register pages
+- Dashboard
+- Application form with file upload
+- Application status tracking
+- Admin interface
 
-### Responsive Design
-- [ ] Test all pages on mobile
-- [ ] Test all pages on tablet
-- [ ] Test all pages on desktop
-- [ ] Fix layout issues
-- [ ] Optimize touch targets
-
-### Accessibility
-- [ ] Add proper heading hierarchy
-- [ ] Add ARIA labels
-- [ ] Ensure keyboard navigation works
-- [ ] Test with screen reader
-- [ ] Add focus indicators
-- [ ] Ensure color contrast (WCAG AA)
-
-### Performance
-- [ ] Optimize images
-  - [ ] Use Astro Image component
-  - [ ] Provide multiple sizes
-  - [ ] Lazy loading
-- [ ] Optimize fonts
-  - [ ] Use font-display: swap
-  - [ ] Subset fonts if possible
-- [ ] Code splitting
-  - [ ] Dynamic imports for heavy components
-- [ ] Minimize JavaScript
-  - [ ] Use Astro islands for interactivity
+See root `TODO.md` Phase 4-5 for details.
 
 ---
 
-## Phase 9: SEO & Meta Tags
-
-### SEO Setup
-- [ ] Configure `astro.config.mjs` for SEO
-  - [ ] Add sitemap integration
-  - [ ] Add robots.txt
-- [ ] Create `public/robots.txt`
-- [ ] Create `public/sitemap.xml` (auto-generated)
-
-### Meta Tags (Per Page)
-- [ ] Homepage meta tags
-  - [ ] Title
-  - [ ] Description
-  - [ ] Open Graph tags
-  - [ ] Twitter Card tags
-  - [ ] Canonical URL
-- [ ] Programs pages meta tags
-- [ ] Static pages meta tags
-- [ ] Application portal meta tags (noindex for authenticated pages)
-
-### Structured Data
-- [ ] Add Organization schema
-- [ ] Add EducationalOrganization schema
-- [ ] Add Course schema (for programs)
-
----
-
-## Phase 10: Testing
+## Phase 7: Testing & Polish (Frontend)
 
 ### Manual Testing
-- [ ] Test all static pages
-- [ ] Test login flow (email/password)
-- [ ] Test login flow (Google OIDC)
-- [ ] Test registration flow
-- [ ] Test application submission
-- [ ] Test file upload
-- [ ] Test admin interface
-- [ ] Test responsive design
-- [ ] Test cross-browser (Chrome, Firefox, Safari)
+- [ ] Test all pages on mobile devices
+- [ ] Test on different browsers (Chrome, Firefox, Safari, Edge)
+- [ ] Test all navigation links
+- [ ] Test language switcher
+- [ ] Test responsive breakpoints
+- [ ] Verify no console errors
 
-### Type Checking
-- [ ] Run `npm run typecheck`
-- [ ] Fix all TypeScript errors
+### Automated Testing
+- [ ] Playwright tests for critical paths
+- [ ] Visual regression tests (optional)
 
-### Build Testing
-- [ ] Run `npm run build`
-- [ ] Fix build errors
-- [ ] Test preview build (`npm run preview`)
-
-### Lighthouse Audit
-- [ ] Run Lighthouse on homepage
-- [ ] Run Lighthouse on programs page
-- [ ] Run Lighthouse on application portal
-- [ ] Fix performance issues
-- [ ] Fix accessibility issues
-- [ ] Achieve 90+ scores
-
----
-
-## Phase 11: Deployment Preparation
-
-### Environment Variables
-- [ ] Create `.dev.vars.example`
-- [ ] Document all required environment variables
-- [ ] Set up production environment variables in Cloudflare dashboard
-
-### Wrangler Configuration
-- [ ] Create `wrangler.toml`
-  - [ ] Configure Workers routes
-  - [ ] Set compatibility date
-  - [ ] Configure environment variables
-  - [ ] Set build output directory
-
-### GitHub Actions
-- [ ] Verify workflow file exists (`.github/workflows/deploy-frontend.yml`)
-- [ ] Test deployment workflow
-- [ ] Set up GitHub secrets
-  - [ ] `CLOUDFLARE_API_TOKEN`
-  - [ ] `CLOUDFLARE_ACCOUNT_ID`
-
-### Pre-Deployment Checklist
-- [ ] All pages load correctly
-- [ ] All forms work
-- [ ] All links work
-- [ ] No console errors
-- [ ] No build warnings
-- [ ] Environment variables configured
-- [ ] Favicon present
-- [ ] robots.txt configured
-- [ ] Sitemap generated
-
----
-
-## Phase 12: Launch
-
-### Initial Deployment
-- [ ] Deploy to Cloudflare Pages (staging)
-- [ ] Test on staging URL
-- [ ] Deploy to production domain
-- [ ] Verify DNS settings
-- [ ] Verify SSL certificate
-
-### Post-Launch
-- [ ] Monitor Cloudflare Analytics
-- [ ] Check for errors in Workers logs
-- [ ] Test all critical paths
-- [ ] Set up uptime monitoring
-- [ ] Document any issues
-
----
-
-## Future Enhancements
-
-### Performance
-- [ ] Implement service worker for offline support
-- [ ] Add caching strategy
-- [ ] Optimize bundle size
-
-### Features
-- [ ] Email notifications
-- [ ] Real-time application status updates
-- [ ] Document preview in browser
-- [ ] Application analytics dashboard
-- [ ] Bulk application operations (admin)
-- [ ] Export applications to CSV
-
-### UX Improvements
-- [ ] Add loading skeletons
-- [ ] Add success/error toast notifications
-- [ ] Add confirmation dialogs
-- [ ] Add keyboard shortcuts
-- [ ] Add dark mode toggle
+### Performance Testing
+- [ ] Lighthouse audit (target 90+ scores)
+  - [ ] Homepage
+  - [ ] Programs page
+  - [ ] About page
+  - [ ] Lecturers page
+- [ ] Core Web Vitals optimization
+- [ ] Page load time <2s
 
 ---
 
 ## Notes
 
+### Priority
+**P0 (Critical for Phase 3 completion):**
+- Programs pages
+- Contact page
+- Admissions page
+
+**P1 (High priority):**
+- News/blog system
+- SEO enhancements
+
+**P2 (Medium priority):**
+- Performance optimizations
+- Accessibility improvements
+
 ### Estimated Timeline
-- **Phase 1-2:** 3-5 days (Setup, layouts, base components)
-- **Phase 3:** 3-4 days (Marketing pages and content)
-- **Phase 4:** 2-3 days (Authentication pages)
-- **Phase 5:** 5-7 days (Application portal)
-- **Phase 6:** 3-4 days (Admin interface)
-- **Phase 7:** 4-5 days (BFF layer)
-- **Phase 8-9:** 3-4 days (Styling, SEO)
-- **Phase 10-11:** 2-3 days (Testing, deployment prep)
-- **Phase 12:** 1 day (Launch)
+- Programs pages: 2-3 days
+- Contact page: 1 day
+- Admissions page: 1-2 days
+- News/blog: 2-3 days
+- Testing & polish: 2-3 days
 
-**Total: 26-38 days (~5-8 weeks)**
-
-### Priority Levels
-- **P0 (Critical):** Phases 1-7, 10-12
-- **P1 (High):** Phases 8-9
-- **P2 (Medium):** Future enhancements
-
-### Success Criteria
-- [ ] All marketing pages are live and look professional
-- [ ] Users can register and login (both methods work)
-- [ ] Users can submit applications with file uploads
-- [ ] Admins can review and approve/reject applications
-- [ ] Site loads in <2 seconds
-- [ ] Mobile-responsive
-- [ ] Zero console errors in production
-- [ ] Lighthouse score 90+ across all categories
+**Total: 8-12 days to complete Phase 3**

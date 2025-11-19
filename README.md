@@ -4,7 +4,7 @@
 
 **🌐 Live Site:** https://dev.stmik.tazkia.ac.id/
 
-## 🎯 Current Status (Updated: 2025-01-19)
+## 🎯 Current Status (Updated: 2025-11-19)
 
 **Phase:** Marketing Site Foundation (Phase 3 - 30% Complete)
 
@@ -86,34 +86,32 @@ Campus website for marketing and admission processing, serving:
 ## 📁 Repository Structure
 
 ```
-campus-website/                       # Monorepo
-├── .github/workflows/                # CI/CD automation
-│   ├── deploy-frontend.yml          # Deploy to Cloudflare
-│   └── deploy-backend.yml           # Deploy to VPS
-├── frontend/                         # Astro + Cloudflare Workers
-│   ├── src/content/                 # Markdown content
-│   ├── src/pages/                   # Astro pages
-│   ├── functions/                   # BFF layer (Cloudflare Workers)
+website-stmik/                        # Frontend-only (backend deferred)
+├── frontend/                         # Astro static site
+│   ├── src/
+│   │   ├── content/                 # Markdown content (lecturers, programs, etc.)
+│   │   ├── pages/                   # Astro pages (bilingual routing)
+│   │   ├── components/              # Reusable UI components
+│   │   ├── layouts/                 # Page layouts (Base, Marketing)
+│   │   ├── styles/                  # Global styles (Tailwind CSS 4.x)
+│   │   └── utils/                   # Utilities (i18n, etc.)
+│   ├── public/
+│   │   ├── images/                  # Static images
+│   │   └── locales/                 # Translation JSON files (id/en)
+│   ├── astro.config.mjs             # Astro configuration
 │   └── package.json
-├── backend/                          # Express.js API
-│   ├── src/routes/                  # API endpoints
-│   ├── migrations/                  # Database migrations
-│   └── package.json
-├── shared/                           # Shared TypeScript types
-│   └── types/                       # User, Application, etc.
 ├── docs/                             # Documentation
 │   ├── ARCHITECTURE.md              # Technical design details
 │   └── DEPLOYMENT.md                # Deployment guide
 ├── TODO.md                           # Implementation checklist
-├── package.json                      # Root package (npm workspaces)
+├── CLAUDE.md                         # Claude Code guidance
 └── README.md                         # This file
 ```
 
-**Why Monorepo?**
-- ✅ Single source of truth
-- ✅ Atomic commits across frontend/backend
-- ✅ Share TypeScript types and constants
-- ✅ Independent deployments via GitHub Actions
+**Future Structure (when backend is added):**
+- `backend/` - Express.js API + PostgreSQL
+- `shared/` - Shared TypeScript types
+- Monorepo with npm workspaces
 
 ---
 
@@ -318,46 +316,24 @@ See **[TODO.md](TODO.md)** for the complete implementation roadmap.
 ### Commands
 
 ```bash
-# Install dependencies
-npm install
+# Frontend development (current)
+cd frontend
+npm install                    # Install dependencies
+npm run dev                    # Start dev server (http://localhost:4321)
+npm run build                  # Build for production
+npm run preview                # Preview production build
 
-# Development
-npm run dev                    # Run all services
-npm run dev -w frontend        # Frontend only
-npm run dev -w backend         # Backend only
+# Code quality
+npm run typecheck              # Run TypeScript checks
+npm run lint                   # Run ESLint
+npm run format                 # Format with Prettier
 
-# Build
-npm run build                  # Build all
-npm run build -w frontend      # Frontend only
-
-# Deploy
-npm run deploy:frontend        # Deploy to Cloudflare
-npm run deploy:backend         # Deploy to VPS
-
-# Database
-cd backend
-npm run migrate                # Run migrations
-npm run migrate:rollback       # Rollback last migration
+# Deployment
+git push                       # Cloudflare Pages auto-deploys on push
 ```
 
-### Shared Code
-
-The `shared/` directory contains TypeScript types, constants, and validators used by both frontend and backend.
-
-```typescript
-// Example: shared/types/Application.ts
-export interface Application {
-  id: number;
-  userId: number;
-  program: string;
-  status: 'pending' | 'approved' | 'rejected';
-  submittedAt: Date;
-}
-
-// Used in both:
-// - frontend/functions/applications/list.js
-// - backend/src/routes/applications.js
-```
+**Backend & Monorepo Commands (coming in Phase 2):**
+Backend API, database migrations, and npm workspace commands will be available after Phase 2 implementation.
 
 ---
 

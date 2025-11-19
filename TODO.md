@@ -1,439 +1,299 @@
-# Campus Website - Implementation TODO
-
-## Current Status (Updated: 2025-01-19)
+# Campus Website - Project TODO
 
 **Live Site:** https://dev.stmik.tazkia.ac.id/
-
-### ✅ Completed
-- **Phase 1 (Partial):** Repository setup, Cloudflare Pages deployment
-- **Phase 3 (Partial):** Marketing website foundation
-  - Bilingual static site (Indonesian & English)
-  - Homepage, About page, Lecturer profiles
-  - Responsive design with Tailwind CSS
-  - Custom i18n system
-  - SEO optimization (meta tags, sitemap)
-
-### 🚧 In Progress
-- Phase 3: Additional marketing pages (Programs, Contact, Admissions, News)
-
-### 📋 Pending
-- Phase 1: VPS & backend infrastructure (on hold - static site first)
-- Phase 2: Backend API development
-- Phase 3: Authentication pages, Application portal, Admin interface
-- Phase 4-8: BFF layer, deployment, testing, launch
-
-### 📊 Progress
-- Phase 1: 40% complete (infrastructure pending)
-- Phase 2: 0% complete
-- Phase 3: 30% complete (foundation done, dynamic features pending)
-- Overall: ~20% complete
+**Last Updated:** 2025-11-19
 
 ---
 
-## Phase 1: Project Setup
+## 📊 Overall Progress
 
-### Infrastructure Setup
-- [ ] Set up VPS with local cloud provider (DEFERRED - static site first)
-  - [ ] Install Node.js 20+
-  - [ ] Install PostgreSQL 14+
-  - [ ] Configure firewall (allow ports 80, 443, 22)
-  - [ ] Install pm2 for process management
-  - [ ] Set up nginx as reverse proxy
-- [x] Create Cloudflare account
-  - [ ] Set up Cloudflare Workers (pending)
-  - [x] Set up Cloudflare Pages
-  - [x] Configure custom domain (dev.stmik.tazkia.ac.id)
-- [ ] Set up Google Cloud project for OIDC (pending)
-  - [ ] Create OAuth 2.0 credentials
-  - [ ] Configure redirect URIs
-  - [ ] Save client ID and client secret
+| Phase | Component | Status | Progress | Details |
+|-------|-----------|--------|----------|---------|
+| **Phase 1** | Infrastructure Setup | 🔶 Partial | 40% | Frontend deployed, backend deferred |
+| **Phase 2** | Backend API | ⏸️ Deferred | 0% | See `backend/TODO.md` |
+| **Phase 3** | Frontend Marketing Site | 🚧 In Progress | 30% | See `frontend/TODO.md` |
+| **Phase 4** | BFF Layer | ⏸️ Deferred | 0% | See `frontend/TODO.md` |
+| **Phase 5** | Shared Code | ⏸️ Deferred | 0% | See `shared/TODO.md` |
+| **Phase 6** | Deployment & DevOps | 🔶 Partial | 20% | Cloudflare auto-deploy working |
+| **Phase 7** | Testing & Polish | ⏸️ Not Started | 0% | Pending Phase 3 completion |
+| **Phase 8** | Launch Preparation | ⏸️ Not Started | 0% | Pending all phases |
 
-### Repository Setup
-- [x] Initialize monorepo structure
-  - [x] Create `frontend/` directory
-  - [ ] Create `backend/` directory (pending)
-  - [ ] Create `shared/` directory (pending)
-  - [x] Create `docs/` directory
-  - [ ] Set up root `package.json` with workspaces (using frontend only currently)
-  - [x] Create `.gitignore`
-- [x] Set up GitHub repository (https://github.com/endymuhardin/website-stmik)
-- [ ] Set up GitHub Actions (REMOVED - using Cloudflare Pages auto-deploy)
-  - [x] ~~Create `.github/workflows/deploy-frontend.yml`~~ (removed in favor of Cloudflare)
-  - [ ] Create `.github/workflows/deploy-backend.yml` (pending)
+**Overall Project:** ~20% Complete
+
+**Legend:**
+- ✅ Complete
+- 🚧 In Progress
+- 🔶 Partial
+- ⏸️ Deferred/Not Started
 
 ---
 
-## Phase 2: Backend Development
+## 🎯 Current Focus: Phase 3 - Marketing Site (30%)
 
-### Database Setup
-- [ ] Design and create database schema
-  - [ ] Create `users` table
-  - [ ] Create `applications` table
-  - [ ] Create `sessions` table (if using Option B)
-  - [ ] Create migration files
-  - [ ] Write seed data for testing
-- [ ] Set up database connection
-  - [ ] Install `pg` (node-postgres)
-  - [ ] Create `backend/src/config/database.js`
-  - [ ] Implement connection pooling
+### ✅ Completed (Phase 3)
+- Astro 5.x + Tailwind CSS 4.x setup
+- Bilingual system (Indonesian/English) with custom i18n
+- Layouts: BaseLayout, MarketingLayout
+- Components: Header, Footer, Navigation, Card, Button, Container, Section
+- Pages: Homepage, About, Lecturer Profiles
+- Content Collections: Lecturers
+- SEO: Meta tags, sitemap, Open Graph tags
+- Deployment: Cloudflare Pages with auto-deploy
 
-### Authentication System
-- [ ] Implement JWT utilities
-  - [ ] Token generation
-  - [ ] Token verification
-  - [ ] Token refresh logic
-- [ ] Create authentication middleware
-  - [ ] `authenticateToken` middleware
-  - [ ] Role-based access control
-- [ ] Build authentication endpoints
-  - [ ] `POST /auth/login` (email/password)
-  - [ ] `POST /auth/register`
-  - [ ] `POST /auth/google` (OIDC handler)
-  - [ ] `POST /auth/logout`
-  - [ ] `POST /auth/refresh-token` (optional)
+### 🚧 Next Tasks (Phase 3)
+- [ ] Programs listing and detail pages
+- [ ] Contact page
+- [ ] Admissions information page
+- [ ] News/blog system
 
-### API Development
-- [ ] User management endpoints
-  - [ ] `GET /users/me` (get current user)
-  - [ ] `PATCH /users/me` (update profile)
-  - [ ] `GET /users` (admin only - list users)
-- [ ] Application endpoints
-  - [ ] `POST /applications` (submit application)
-  - [ ] `GET /applications` (list user's applications)
-  - [ ] `GET /applications/:id` (get single application)
-  - [ ] `PATCH /applications/:id` (update application - draft mode)
-  - [ ] `PATCH /applications/:id/status` (admin - approve/reject)
-  - [ ] `DELETE /applications/:id` (delete draft)
+**Estimated Time to Complete Phase 3:** 8-12 days
 
-### File Upload
-- [ ] Set up file storage
-  - [ ] Configure Cloudflare R2 or VPS storage
-  - [ ] Implement file upload handler
-  - [ ] File validation (size, type)
-  - [ ] Generate secure file URLs
-- [ ] File management endpoints
-  - [ ] `POST /files/upload`
-  - [ ] `GET /files/:id`
-  - [ ] `DELETE /files/:id`
-
-### Testing & Security
-- [ ] Write backend tests
-  - [ ] Authentication tests
-  - [ ] Application CRUD tests
-  - [ ] Authorization tests
-- [ ] Implement security measures
-  - [ ] Rate limiting
-  - [ ] Input validation (express-validator)
-  - [ ] SQL injection prevention
-  - [ ] CORS configuration
-  - [ ] Helmet.js security headers
+👉 **Detailed frontend tasks:** See `frontend/TODO.md`
 
 ---
 
-## Phase 3: Frontend Development
+## 📋 Phase-by-Phase Overview
 
-### Astro Site Setup
-- [x] Initialize Astro project
-  - [x] Install Astro 5.x
-  - [x] Configure `astro.config.mjs` (site, i18n, integrations)
-  - [x] Set up Tailwind CSS 4.x
-  - [x] Create custom component library (Card, Button, Container, Section)
-- [x] Create layouts
-  - [x] `BaseLayout.astro` (main layout with SEO, i18n)
-  - [x] `MarketingLayout.astro` (public pages with header/footer)
-  - [ ] `DashboardLayout.astro` (authenticated layout) - pending
-- [x] Create components
-  - [x] `Header.astro`
-  - [x] `Footer.astro`
-  - [x] `Navigation.astro` (desktop & mobile with language switcher)
-  - [x] `LanguageSwitcher.astro`
-  - [x] `Card.astro`, `Button.astro`, `Container.astro`, `Section.astro`
-- [x] Implement custom i18n system (no astro-i18next dependency)
-  - [x] `utils/i18n.ts` with locale detection and translation
-  - [x] Translation files: `public/locales/id/common.json`, `public/locales/en/common.json`
-  - [x] Bilingual routing: `/` (ID), `/en/` (EN)
+### Phase 1: Infrastructure Setup (40% Complete)
+**Status:** Partial - frontend infrastructure done, backend deferred
 
-### Marketing Pages (Static)
-- [x] Create content collection system
-  - [x] `content/lecturers/*.md` (faculty profiles with frontmatter)
-  - [ ] `content/programs/*.md` (program descriptions) - pending
-  - [ ] `content/about/*.md` (about campus) - pending
-  - [ ] `content/admissions/*.md` (admission requirements) - pending
-- [x] Build static pages (bilingual)
-  - [x] Homepage (`pages/index.astro`, `pages/en/index.astro`)
-  - [x] About page (`pages/about.astro`, `pages/en/about.astro`)
-  - [x] Lecturers listing (`pages/lecturers/index.astro`, `pages/en/lecturers/index.astro`)
-  - [x] Lecturer profiles (`pages/lecturers/[slug].astro`, `pages/en/lecturers/[slug].astro`)
-  - [ ] Programs listing (`pages/programs/index.astro`) - pending
-  - [ ] Program detail pages (`pages/programs/[slug].astro`) - pending
-  - [ ] Admissions page (`pages/admissions.astro`) - pending
-  - [ ] News listing/detail pages - pending
-  - [ ] Contact page (`pages/contact.astro`) - pending
+#### ✅ Completed
+- Repository structure created
+- Cloudflare Pages configured and deployed
+- Custom domain configured (dev.stmik.tazkia.ac.id)
+- Documentation created (README, CLAUDE, ARCHITECTURE, DEPLOYMENT)
 
-### Authentication Pages
-- [ ] Build auth UI
-  - [ ] Login page (`pages/login.astro`)
-  - [ ] Register page (`pages/register.astro`)
-  - [ ] Client-side auth utilities (`src/scripts/auth.js`)
-  - [ ] Protected route wrapper
-
-### Application Portal
-- [ ] Dashboard
-  - [ ] `pages/dashboard.astro` (user dashboard)
-  - [ ] Display user info
-  - [ ] List user's applications
-  - [ ] Show application status
-- [ ] Application form
-  - [ ] `pages/apply.astro` (application form)
-  - [ ] Form validation (client-side)
-  - [ ] File upload UI
-  - [ ] Draft auto-save
-  - [ ] Submit handler
-- [ ] Admin interface
-  - [ ] `pages/admin/applications.astro` (list all applications)
-  - [ ] Application review UI
-  - [ ] Approve/reject actions
-  - [ ] User management interface
+#### ⏸️ Deferred to Later
+- VPS provisioning (when backend needed)
+- PostgreSQL setup (when backend needed)
+- Google OAuth setup (when authentication needed)
 
 ---
 
-## Phase 4: BFF Layer (Cloudflare Workers)
+### Phase 2: Backend Development (0% Complete)
+**Status:** Deferred - backend not needed for marketing site
 
-### Authentication Handlers
-- [ ] Google OIDC flow
-  - [ ] `functions/auth/google/login.js` (initiate OIDC)
-  - [ ] `functions/auth/google/callback.js` (handle callback)
-  - [ ] Token verification
-  - [ ] Cookie management
-- [ ] Traditional auth
-  - [ ] `functions/auth/login.js` (email/password)
-  - [ ] `functions/auth/register.js`
-  - [ ] `functions/auth/logout.js`
+Will implement when authentication and application portal are needed.
 
-### API Proxy Functions
-- [ ] Application handlers
-  - [ ] `functions/applications/submit.js`
-  - [ ] `functions/applications/list.js`
-  - [ ] `functions/applications/status.js`
-- [ ] User handlers
-  - [ ] `functions/users/me.js`
-  - [ ] `functions/users/update.js`
-- [ ] File upload handlers
-  - [ ] `functions/files/upload.js`
+**Scope:**
+- Express.js REST API
+- PostgreSQL database
+- Authentication system (JWT + Google OIDC)
+- User management
+- Application CRUD endpoints
+- File upload system
+- Security middleware
 
-### BFF Utilities
-- [ ] Cookie parser
-- [ ] Token extraction
-- [ ] Error handling
-- [ ] Rate limiting (Cloudflare Workers)
+**Timeline Estimate:** 12-18 days (~2.5-4 weeks)
+
+👉 **Detailed backend tasks:** See `backend/TODO.md`
 
 ---
 
-## Phase 5: Shared Code
+### Phase 3: Frontend Development (30% Complete)
+**Status:** In Progress - marketing site foundation done, additional pages pending
 
-### TypeScript Types
-- [ ] Create shared types
-  - [ ] `shared/types/User.ts`
-  - [ ] `shared/types/Application.ts`
-  - [ ] `shared/types/Auth.ts`
-  - [ ] `shared/types/index.ts` (exports)
+**Completed:**
+- Static site infrastructure
+- Homepage, About page
+- Lecturer profiles with content collections
+- Bilingual routing (ID/EN)
+- Responsive design
 
-### Constants
-- [ ] Define shared constants
-  - [ ] `shared/constants/applicationStatus.ts`
-  - [ ] `shared/constants/userRoles.ts`
-  - [ ] `shared/constants/programs.ts`
+**Remaining:**
+- Programs pages
+- Contact page
+- Admissions page
+- News/blog system
 
-### Validators
-- [ ] Create validation schemas
-  - [ ] `shared/validators/applicationSchema.ts`
-  - [ ] `shared/validators/userSchema.ts`
-  - [ ] Can use Zod or Joi
+**Timeline Estimate:** 8-12 days total (5-8 days remaining)
 
----
-
-## Phase 6: Deployment & DevOps
-
-### Frontend Deployment
-- [ ] Configure Cloudflare Workers
-  - [ ] Create `wrangler.toml`
-  - [ ] Set up environment variables
-  - [ ] Test Workers locally
-- [ ] Deploy to Cloudflare Pages
-  - [ ] Build Astro site
-  - [ ] Deploy static assets
-  - [ ] Configure custom domain
-  - [ ] Set up SSL/TLS
-
-### Backend Deployment
-- [ ] Prepare VPS
-  - [ ] Clone repository to VPS
-  - [ ] Install dependencies
-  - [ ] Set up `.env` file
-  - [ ] Run database migrations
-  - [ ] Configure pm2
-  - [ ] Set up nginx reverse proxy
-- [ ] Configure SSL
-  - [ ] Install certbot
-  - [ ] Generate SSL certificates
-  - [ ] Configure nginx for HTTPS
-
-### CI/CD
-- [ ] Test GitHub Actions workflows
-  - [ ] Test frontend deployment
-  - [ ] Test backend deployment
-  - [ ] Verify path-based triggers
-- [ ] Set up monitoring
-  - [ ] Cloudflare Analytics
-  - [ ] VPS monitoring (pm2, nginx logs)
-  - [ ] Database monitoring
+👉 **Detailed frontend tasks:** See `frontend/TODO.md`
 
 ---
 
-## Phase 7: Testing & Polish
+### Phase 4: BFF Layer (0% Complete)
+**Status:** Deferred - only needed when backend exists
 
-### Testing
-- [ ] End-to-end testing
-  - [ ] User registration flow
-  - [ ] Google OIDC login flow
-  - [ ] Email/password login flow
-  - [ ] Application submission
-  - [ ] Admin review workflow
-  - [ ] File upload/download
-- [ ] Performance testing
-  - [ ] Load testing (simulate 300 users)
-  - [ ] Check Cloudflare Workers metrics
-  - [ ] Database query optimization
-- [ ] Security audit
-  - [ ] Test XSS protection
-  - [ ] Test CSRF protection
-  - [ ] Verify JWT expiration
-  - [ ] Test rate limiting
-  - [ ] Check file upload security
+**Scope:**
+- Cloudflare Workers functions in `frontend/functions/`
+- Authentication handlers (login, register, Google OAuth)
+- API proxy functions
+- HttpOnly cookie management
+- Rate limiting
 
-### Documentation
-- [ ] API documentation
-  - [ ] Document all endpoints
-  - [ ] Request/response examples
-  - [ ] Authentication requirements
-- [ ] User guides
-  - [ ] Registrant guide (how to apply)
-  - [ ] Admin guide (how to review applications)
-- [ ] Developer documentation
-  - [ ] Local development setup
-  - [ ] Deployment process
-  - [ ] Troubleshooting guide
+**Timeline Estimate:** 4-5 days
 
-### Polish
-- [ ] UI/UX improvements
-  - [ ] Mobile responsiveness
-  - [ ] Loading states
-  - [ ] Error messages
-  - [ ] Success notifications
-- [ ] Accessibility
-  - [ ] ARIA labels
-  - [ ] Keyboard navigation
-  - [ ] Screen reader testing
-- [ ] SEO optimization
-  - [ ] Meta tags
-  - [ ] Sitemap
-  - [ ] robots.txt
-  - [ ] Open Graph tags
+👉 **Details:** See `frontend/TODO.md` Phase 7 section
 
 ---
 
-## Phase 8: Launch Preparation
+### Phase 5: Shared Code (0% Complete)
+**Status:** Deferred - only needed when monorepo has backend + frontend
 
-### Pre-launch Checklist
-- [ ] Environment variables verified
-  - [ ] Production Cloudflare API tokens
-  - [ ] Google OAuth credentials (production)
-  - [ ] JWT secrets (strong, unique)
-  - [ ] Database credentials
-- [ ] Backups configured
-  - [ ] Database backup script
-  - [ ] File storage backup
-  - [ ] Automated daily backups
-- [ ] Monitoring set up
-  - [ ] Error tracking
-  - [ ] Performance monitoring
-  - [ ] Uptime monitoring
-- [ ] Security review
-  - [ ] SSL certificates valid
-  - [ ] Security headers configured
-  - [ ] Rate limiting tested
-  - [ ] DDoS protection enabled
+**Scope:**
+- TypeScript types (User, Application, Auth, File)
+- Shared constants (roles, statuses, programs)
+- Validation schemas (Zod)
 
-### Soft Launch
-- [ ] Test with small group (5-10 users)
-- [ ] Collect feedback
-- [ ] Fix critical bugs
-- [ ] Verify email notifications work
-- [ ] Test under realistic load
+**Timeline Estimate:** 3 days
 
-### Full Launch
-- [ ] Announce to students
-- [ ] Monitor traffic and errors
-- [ ] Be ready for support requests
-- [ ] Track application submissions
+👉 **Detailed shared code tasks:** See `shared/TODO.md`
 
 ---
 
-## Future Enhancements (Post-Launch)
+### Phase 6: Deployment & DevOps (20% Complete)
+**Status:** Partial - frontend auto-deploys, backend deployment pending
 
-### Phase 9: Advanced Features
-- [ ] Email verification for local accounts
-- [ ] Password reset flow
-- [ ] Multi-factor authentication (2FA)
-- [ ] Advanced RBAC (reviewers, super-admin)
-- [ ] Application workflow stages
-- [ ] Email notifications for status updates
-- [ ] Admin analytics dashboard
-- [ ] Document preview in browser
-- [ ] Application deadline management
-- [ ] Bulk application processing
-- [ ] Export to CSV/Excel
-- [ ] Real-time notifications (WebSocket)
-- [ ] Audit logs
-- [ ] Integration with student information system
+#### ✅ Completed
+- Cloudflare Pages deployment configured
+- Auto-deploy on git push working
+- Custom domain with SSL/TLS
+- SEO sitemap generation
 
-### Phase 10: Optimization
-- [ ] Implement caching (BFF layer)
-- [ ] Request batching
-- [ ] Database indexing
-- [ ] Image optimization
-- [ ] Code splitting
-- [ ] Service Worker for offline support
+#### ⏸️ Pending Backend Deployment
+- VPS setup and configuration
+- Backend deployment with pm2
+- Nginx reverse proxy
+- Database migrations in production
+- Backup automation
+- Monitoring setup
+
+**Timeline Estimate:** 1 week (when backend ready)
 
 ---
 
-## Notes
+### Phase 7: Testing & Polish (0% Complete)
+**Status:** Not Started - pending Phase 3 completion
 
-### Priority Levels
-- **P0 (Critical)**: Must have for launch
-- **P1 (High)**: Important but can be added shortly after launch
-- **P2 (Medium)**: Nice to have, can be planned for future
-- **P3 (Low)**: Future enhancement, not urgent
+**Scope:**
+- End-to-end testing (authentication, application flows)
+- Performance testing (Lighthouse audits)
+- Security audit (XSS, CSRF, rate limiting)
+- Cross-browser testing
+- Mobile responsiveness verification
+- Accessibility compliance (WCAG AA)
 
-### Estimated Timeline
-- Phase 1-2: 1-2 weeks (Backend foundation)
-- Phase 3-4: 2-3 weeks (Frontend + BFF)
-- Phase 5: 3-5 days (Shared code)
-- Phase 6: 1 week (Deployment)
-- Phase 7: 1-2 weeks (Testing & polish)
-- Phase 8: 1 week (Launch prep)
+**Timeline Estimate:** 1-2 weeks
 
-**Total: 7-10 weeks** for MVP launch
+---
 
-### Team Requirements
-- 1 Full-stack developer (can handle all phases)
-- OR
-- 1 Frontend developer + 1 Backend developer (parallel work)
+### Phase 8: Launch Preparation (0% Complete)
+**Status:** Not Started - pending all phases
 
-### Success Metrics
-- [ ] 300 registrants successfully submit applications
-- [ ] Zero security incidents
+**Scope:**
+- Environment variables verification
+- Backup configuration
+- Monitoring setup
+- Security review
+- Soft launch with test users
+- Full public launch
+
+**Timeline Estimate:** 1 week
+
+---
+
+## 🗓️ Timeline Summary
+
+### Completed So Far
+- **Phase 1 (Partial):** 1 week
+- **Phase 3 (Partial):** 2 weeks
+
+**Total Elapsed:** ~3 weeks
+
+### Remaining Timeline
+
+**Option A: Marketing Site Only (No Backend)**
+- Phase 3 completion: 1-2 weeks
+- Phase 7 (testing): 1 week
+- **Total:** 2-3 weeks
+
+**Option B: Full System (With Backend)**
+- Phase 3 completion: 1-2 weeks
+- Phase 2 (backend): 2.5-4 weeks
+- Phase 4 (BFF): 1 week
+- Phase 5 (shared): 3 days
+- Phase 6 (deployment): 1 week
+- Phase 7 (testing): 1-2 weeks
+- Phase 8 (launch): 1 week
+- **Total:** 9-12 weeks
+
+---
+
+## 🎯 Success Metrics
+
+### Marketing Site (Phase 3)
+- [ ] All static pages live (Home, About, Programs, Contact, Admissions, News)
+- [ ] Bilingual content complete (ID + EN)
+- [ ] Mobile responsive
+- [ ] Page load <2s
+- [ ] Lighthouse score 90+ (Performance, Accessibility, Best Practices, SEO)
+- [ ] Zero console errors
+
+### Full System (Phases 2-8)
+- [ ] 300 registrants can submit applications
+- [ ] Staff can review and approve/reject applications
+- [ ] File uploads working securely
 - [ ] 99% uptime
-- [ ] <2s page load time
-- [ ] <1.5% BFF traffic usage (well under limit)
+- [ ] <1.5% Cloudflare Workers usage
 - [ ] $5-10/month hosting cost maintained
+- [ ] Zero security incidents
+
+---
+
+## 📁 Task Organization
+
+This root TODO provides high-level project overview. For detailed implementation tasks:
+
+- **Frontend tasks:** `frontend/TODO.md`
+- **Backend tasks:** `backend/TODO.md`
+- **Shared code tasks:** `shared/TODO.md`
+
+---
+
+## 🚀 Quick Start for Developers
+
+### Working on Frontend (Current Phase)
+```bash
+cd frontend
+npm install
+npm run dev          # http://localhost:4321
+```
+
+👉 See `frontend/TODO.md` for current tasks
+
+### Working on Backend (Future Phase)
+```bash
+cd backend
+# Not yet implemented - see backend/TODO.md for planned tasks
+```
+
+### Working on Shared Types (Future Phase)
+```bash
+cd shared
+# Not yet implemented - see shared/TODO.md for planned tasks
+```
+
+---
+
+## 📝 Notes
+
+### Current Strategy
+1. **Phase 3:** Complete marketing site (static pages) first
+2. **User feedback:** Get stakeholder feedback on marketing content
+3. **Phase 2-4:** Build backend + application portal
+4. **Launch:** Full system with authentication and applications
+
+### Key Decisions
+- ✅ Using custom i18n (no external dependencies)
+- ✅ Tailwind CSS 4.x (using `@theme` in CSS)
+- ✅ Cloudflare Pages auto-deploy (no GitHub Actions)
+- ✅ Content collections for structured content
+- ⏸️ Backend deferred until marketing site complete
+
+### Architecture Reminders
+- Static site uses Astro for SEO
+- BFF pattern for security (HttpOnly cookies)
+- Backend will use Express.js + PostgreSQL
+- Target cost: $5-10/month (VPS only)
+- Designed for 300 registrants per cycle

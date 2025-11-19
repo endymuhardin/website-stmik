@@ -110,11 +110,11 @@ npm run migrate:rollback      # Rollback last migration
 | Component | Technology | Notes |
 |-----------|-----------|-------|
 | **Frontend** | Astro 5.x + Tailwind CSS 4.x | Static site generation, component islands |
-| **Styling** | Tailwind CSS + custom design system | Brand colors: primary (teal), secondary (orange) |
+| **Styling** | Tailwind CSS + custom design system | Brand colors: primary (blue #194189), secondary (orange #EE7B1D) |
 | **i18n** | Custom implementation | See frontend/src/utils/i18n.ts |
 | **BFF** | Cloudflare Workers | [Planned] Auth handlers, API proxy |
 | **Backend** | Express.js + PostgreSQL | [Planned] REST API, file storage |
-| **Deployment** | Cloudflare Pages | [Planned] GitHub Actions CI/CD |
+| **Deployment** | Cloudflare Pages | Auto-deploy on git push (Cloudflare integration) |
 
 ## Internationalization (i18n)
 
@@ -148,10 +148,10 @@ The project uses a **custom i18n implementation** (not astro-i18next dependency)
 ### Brand Colors
 
 ```css
-/* Primary: Teal/Green */
+/* Primary: Blue (#194189 from logo) */
 primary-50, primary-100, ..., primary-900, primary-950
 
-/* Secondary: Orange */
+/* Secondary: Orange (#EE7B1D from logo) */
 secondary-50, secondary-100, ..., secondary-900, secondary-950
 
 /* Backgrounds */
@@ -229,17 +229,17 @@ See `docs/ARCHITECTURE.md#database-schema` for detailed schema.
 
 ## Implementation Roadmap
 
-**Current Phase: Phase 2 Complete**
+**Current Phase: Phase 3 - Marketing Site (30% Complete)**
 
 See `TODO.md` for the complete 8-phase implementation plan:
-- Phase 1: Project Setup [PARTIAL - Frontend initialized]
-- Phase 2: Backend Development [PLANNED]
-- Phase 3: Frontend Development [IN PROGRESS - Static pages done]
-- Phase 4: BFF Layer [PLANNED]
-- Phase 5: Shared Code [PLANNED]
-- Phase 6: Deployment & DevOps [PLANNED]
-- Phase 7: Testing & Polish [PLANNED]
-- Phase 8: Launch Preparation [PLANNED]
+- Phase 1: Project Setup [PARTIAL - Frontend deployed, backend infrastructure deferred]
+- Phase 2: Backend Development [DEFERRED - not started]
+- Phase 3: Frontend Development [IN PROGRESS - Homepage, About, Lecturers done; Programs, Contact, Admissions, News pending]
+- Phase 4: BFF Layer [DEFERRED - not started]
+- Phase 5: Shared Code [DEFERRED - not started]
+- Phase 6: Deployment & DevOps [PARTIAL - Cloudflare Pages auto-deploy working]
+- Phase 7: Testing & Polish [NOT STARTED]
+- Phase 8: Launch Preparation [NOT STARTED]
 
 Estimated time to MVP: 7-10 weeks
 
@@ -289,6 +289,7 @@ Content collections are configured in `frontend/src/content/config.ts`. Use them
 ## Notes
 
 - The project currently uses only frontend dependencies. Backend dependencies will be added in Phase 2.
-- Astro-i18next is installed in root package.json but NOT used. The project uses a custom i18n implementation.
-- GitHub Actions workflows for CI/CD will be added in Phase 6.
+- The project uses a custom i18n implementation (no external dependencies).
+- Deployment uses Cloudflare Pages auto-deploy (triggered on git push to GitHub).
+- Backend (Express.js + PostgreSQL) and shared types are deferred until Phase 2.
 - File uploads and Cloudflare R2 integration planned for Phase 2-4.
