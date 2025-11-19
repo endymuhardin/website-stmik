@@ -44,20 +44,30 @@ Campus website for marketing and admission processing, serving:
 
 **Hybrid Static Site + BFF (Backend-For-Frontend) Pattern**
 
-```
-┌─────────────┐
-│   Browser   │
-└──────┬──────┘
-       │
-       ├──────> Cloudflare Pages (Static Marketing Site) - FREE
-       │
-       └──────> Cloudflare Workers (BFF Layer) - FREE
-                       │
-                       ▼
-                Express.js Backend (VPS) - $5-10/mo
-                       │
-                       ▼
-                PostgreSQL Database (VPS) - Included
+```mermaid
+graph TB
+    Browser[🌐 Browser]
+
+    subgraph "Edge Layer - Cloudflare (FREE)"
+        Pages[📄 Cloudflare Pages<br/>Static Marketing Site]
+        Workers[⚡ Cloudflare Workers<br/>BFF Layer]
+    end
+
+    subgraph "VPS Layer - Local Provider ($5-10/mo)"
+        Backend[🚀 Express.js Backend<br/>REST API]
+        Database[(🗄️ PostgreSQL<br/>Database)]
+    end
+
+    Browser -->|HTTPS| Pages
+    Browser -->|API Calls<br/>Cookie: token| Workers
+    Workers -->|Authorization: Bearer JWT| Backend
+    Backend --> Database
+
+    style Browser fill:#e1f5ff
+    style Pages fill:#c8e6c9
+    style Workers fill:#c8e6c9
+    style Backend fill:#fff9c4
+    style Database fill:#fff9c4
 ```
 
 **Why This Stack?**
