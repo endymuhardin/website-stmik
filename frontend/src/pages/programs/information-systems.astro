@@ -1,0 +1,446 @@
+---
+import MarketingLayout from '../../layouts/MarketingLayout.astro';
+import Container from '../../components/Container.astro';
+import Section from '../../components/Section.astro';
+import Card from '../../components/Card.astro';
+import { getLocaleFromUrl, t, localizePath } from '../../utils/i18n';
+
+const locale = getLocaleFromUrl(Astro.url);
+const translate = (key: string) => t(locale, key);
+const localPath = (path: string) => localizePath(locale, path);
+
+// Curriculum data from Kurikulum Sistem Informasi STMIK Tazkia
+const semesters = [
+  {
+    semester: 1,
+    courses: [
+      { code: 'MKWU601', name: translate('programs.si.courses.pancasila'), sks: 2, category: 'mkwu' },
+      { code: 'MKWU602', name: translate('programs.si.courses.religion'), sks: 2, category: 'mkwu' },
+      { code: 'INF101', name: translate('programs.si.courses.intro_it'), sks: 2, category: 'core' },
+      { code: 'INF102', name: translate('programs.si.courses.algorithms'), sks: 3, category: 'core' },
+      { code: 'INF103', name: translate('programs.si.courses.discrete_math'), sks: 3, category: 'core' },
+      { code: 'INF104', name: translate('programs.si.courses.statistics'), sks: 3, category: 'core' },
+      { code: 'INF105', name: translate('programs.si.courses.english_1'), sks: 2, category: 'core' },
+    ]
+  },
+  {
+    semester: 2,
+    courses: [
+      { code: 'MKWU603', name: translate('programs.si.courses.citizenship'), sks: 2, category: 'mkwu' },
+      { code: 'INF201', name: translate('programs.si.courses.oop'), sks: 3, category: 'core' },
+      { code: 'INF202', name: translate('programs.si.courses.database'), sks: 3, category: 'core' },
+      { code: 'INF203', name: translate('programs.si.courses.web_programming'), sks: 3, category: 'core' },
+      { code: 'INF204', name: translate('programs.si.courses.os'), sks: 3, category: 'core' },
+      { code: 'INF205', name: translate('programs.si.courses.english_2'), sks: 2, category: 'core' },
+    ]
+  },
+  {
+    semester: 3,
+    courses: [
+      { code: 'MKWU604', name: translate('programs.si.courses.indonesian'), sks: 2, category: 'mkwu' },
+      { code: 'INF301', name: translate('programs.si.courses.data_structures'), sks: 3, category: 'core' },
+      { code: 'INF302', name: translate('programs.si.courses.networking'), sks: 3, category: 'core' },
+      { code: 'INF303', name: translate('programs.si.courses.system_analysis'), sks: 3, category: 'core' },
+      { code: 'INF304', name: translate('programs.si.courses.project_management'), sks: 3, category: 'core' },
+      { code: 'INF305', name: translate('programs.si.courses.mis'), sks: 3, category: 'core' },
+    ]
+  },
+  {
+    semester: 4,
+    courses: [
+      { code: 'INF401', name: translate('programs.si.courses.software_engineering'), sks: 3, category: 'core' },
+      { code: 'INF402', name: translate('programs.si.courses.hci'), sks: 3, category: 'core' },
+      { code: 'INF403', name: translate('programs.si.courses.erp'), sks: 3, category: 'core' },
+      { code: 'INF404', name: translate('programs.si.courses.mobile_dev'), sks: 3, category: 'core' },
+      { code: 'INF405', name: translate('programs.si.courses.is_project_1'), sks: 4, category: 'project' },
+    ]
+  },
+  {
+    semester: 5,
+    courses: [
+      { code: 'INF501', name: translate('programs.si.courses.data_mining'), sks: 3, category: 'core' },
+      { code: 'INF502', name: translate('programs.si.courses.machine_learning'), sks: 3, category: 'core' },
+      { code: 'INF503', name: translate('programs.si.courses.business_intelligence'), sks: 3, category: 'core' },
+      { code: 'INF504', name: translate('programs.si.courses.is_security'), sks: 3, category: 'core' },
+      { code: 'INF505', name: translate('programs.si.courses.is_project_2'), sks: 4, category: 'project' },
+    ]
+  },
+  {
+    semester: 6,
+    courses: [
+      { code: 'INF601', name: translate('programs.si.courses.elective_1'), sks: 3, category: 'elective' },
+      { code: 'INF602', name: translate('programs.si.courses.elective_2'), sks: 3, category: 'elective' },
+      { code: 'INF603', name: translate('programs.si.courses.research_methods'), sks: 3, category: 'core' },
+      { code: 'INF604', name: translate('programs.si.courses.is_project_3'), sks: 4, category: 'project' },
+      { code: 'INF605', name: translate('programs.si.courses.mbkm_1'), sks: 4, category: 'mbkm' },
+    ]
+  },
+  {
+    semester: 7,
+    courses: [
+      { code: 'INF701', name: translate('programs.si.courses.elective_3'), sks: 3, category: 'elective' },
+      { code: 'INF702', name: translate('programs.si.courses.elective_4'), sks: 3, category: 'elective' },
+      { code: 'INF703', name: translate('programs.si.courses.is_project_4'), sks: 4, category: 'project' },
+      { code: 'INF704', name: translate('programs.si.courses.mbkm_2'), sks: 8, category: 'mbkm' },
+    ]
+  },
+  {
+    semester: 8,
+    courses: [
+      { code: 'INF801', name: translate('programs.si.courses.final_project'), sks: 6, category: 'final' },
+    ]
+  }
+];
+
+const specializations = [
+  {
+    id: 'project-management',
+    name: translate('programs.si.specializations.pm.name'),
+    description: translate('programs.si.specializations.pm.description'),
+    courses: [
+      translate('programs.si.specializations.pm.course_1'),
+      translate('programs.si.specializations.pm.course_2'),
+      translate('programs.si.specializations.pm.course_3'),
+      translate('programs.si.specializations.pm.course_4'),
+    ],
+    icon: 'clipboard'
+  },
+  {
+    id: 'machine-learning',
+    name: translate('programs.si.specializations.ml.name'),
+    description: translate('programs.si.specializations.ml.description'),
+    courses: [
+      translate('programs.si.specializations.ml.course_1'),
+      translate('programs.si.specializations.ml.course_2'),
+      translate('programs.si.specializations.ml.course_3'),
+      translate('programs.si.specializations.ml.course_4'),
+    ],
+    icon: 'brain'
+  },
+  {
+    id: 'data-analytics',
+    name: translate('programs.si.specializations.da.name'),
+    description: translate('programs.si.specializations.da.description'),
+    courses: [
+      translate('programs.si.specializations.da.course_1'),
+      translate('programs.si.specializations.da.course_2'),
+      translate('programs.si.specializations.da.course_3'),
+      translate('programs.si.specializations.da.course_4'),
+    ],
+    icon: 'chart'
+  },
+  {
+    id: 'business-information-system',
+    name: translate('programs.si.specializations.bis.name'),
+    description: translate('programs.si.specializations.bis.description'),
+    courses: [
+      translate('programs.si.specializations.bis.course_1'),
+      translate('programs.si.specializations.bis.course_2'),
+      translate('programs.si.specializations.bis.course_3'),
+      translate('programs.si.specializations.bis.course_4'),
+    ],
+    icon: 'building'
+  }
+];
+
+const careerPaths = [
+  { title: translate('programs.si.careers.pm'), description: translate('programs.si.careers.pm_desc') },
+  { title: translate('programs.si.careers.data_analyst'), description: translate('programs.si.careers.data_analyst_desc') },
+  { title: translate('programs.si.careers.ml_engineer'), description: translate('programs.si.careers.ml_engineer_desc') },
+  { title: translate('programs.si.careers.business_analyst'), description: translate('programs.si.careers.business_analyst_desc') },
+  { title: translate('programs.si.careers.bi_specialist'), description: translate('programs.si.careers.bi_specialist_desc') },
+  { title: translate('programs.si.careers.is_consultant'), description: translate('programs.si.careers.is_consultant_desc') },
+  { title: translate('programs.si.careers.dba'), description: translate('programs.si.careers.dba_desc') },
+  { title: translate('programs.si.careers.technopreneur'), description: translate('programs.si.careers.technopreneur_desc') },
+];
+
+const totalSKS = 146;
+const duration = '3.5 - 4';
+---
+
+<MarketingLayout
+  title={translate('programs.si.title')}
+  description={translate('programs.si.description')}
+>
+  <!-- Hero Section -->
+  <Section background="gradient" class="pt-32 pb-20">
+    <Container>
+      <div class="max-w-4xl mx-auto text-center">
+        <span class="inline-block px-4 py-2 bg-primary-100 text-primary-700 rounded-full text-sm font-medium mb-4">
+          S1 - {translate('programs.si.degree')}
+        </span>
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          {translate('programs.si.title')}
+        </h1>
+        <p class="text-xl text-gray-700 mb-8">
+          {translate('programs.si.description')}
+        </p>
+        <div class="flex flex-wrap justify-center gap-6 text-sm">
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span class="text-gray-700">{duration} {translate('programs.si.years')}</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+            </svg>
+            <span class="text-gray-700">{totalSKS} SKS</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+            </svg>
+            <span class="text-gray-700">KKNI Level 6</span>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Program Overview -->
+  <Section background="white">
+    <Container>
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">
+          {translate('programs.si.overview_title')}
+        </h2>
+        <div class="prose prose-lg max-w-none text-gray-700">
+          <p>{translate('programs.si.overview_1')}</p>
+          <p>{translate('programs.si.overview_2')}</p>
+        </div>
+
+        <!-- Key Features -->
+        <div class="grid md:grid-cols-3 gap-6 mt-12">
+          <Card>
+            <div class="p-6 text-center">
+              <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                </svg>
+              </div>
+              <h3 class="font-bold text-gray-900 mb-2">{translate('programs.si.feature_obe')}</h3>
+              <p class="text-sm text-gray-600">{translate('programs.si.feature_obe_desc')}</p>
+            </div>
+          </Card>
+          <Card>
+            <div class="p-6 text-center">
+              <div class="w-12 h-12 bg-secondary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-6 h-6 text-secondary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                </svg>
+              </div>
+              <h3 class="font-bold text-gray-900 mb-2">{translate('programs.si.feature_mbkm')}</h3>
+              <p class="text-sm text-gray-600">{translate('programs.si.feature_mbkm_desc')}</p>
+            </div>
+          </Card>
+          <Card>
+            <div class="p-6 text-center">
+              <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                </svg>
+              </div>
+              <h3 class="font-bold text-gray-900 mb-2">{translate('programs.si.feature_industry')}</h3>
+              <p class="text-sm text-gray-600">{translate('programs.si.feature_industry_desc')}</p>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Specializations -->
+  <Section background="gray">
+    <Container>
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">
+            {translate('programs.si.specializations_title')}
+          </h2>
+          <p class="text-lg text-gray-600">
+            {translate('programs.si.specializations_subtitle')}
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          {specializations.map((spec) => (
+            <Card hover={true}>
+              <div class="p-6">
+                <div class="flex items-start gap-4">
+                  <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    {spec.icon === 'clipboard' && (
+                      <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                      </svg>
+                    )}
+                    {spec.icon === 'brain' && (
+                      <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                      </svg>
+                    )}
+                    {spec.icon === 'chart' && (
+                      <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                      </svg>
+                    )}
+                    {spec.icon === 'building' && (
+                      <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                      </svg>
+                    )}
+                  </div>
+                  <div class="flex-1">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">{spec.name}</h3>
+                    <p class="text-gray-600 mb-4">{spec.description}</p>
+                    <ul class="space-y-1">
+                      {spec.courses.map((course) => (
+                        <li class="flex items-center text-sm text-gray-700">
+                          <span class="w-1.5 h-1.5 bg-primary-500 rounded-full mr-2"></span>
+                          {course}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Curriculum Structure -->
+  <Section background="white">
+    <Container>
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">
+            {translate('programs.si.curriculum_title')}
+          </h2>
+          <p class="text-lg text-gray-600">
+            {translate('programs.si.curriculum_subtitle')}
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {semesters.map((sem) => (
+            <Card>
+              <div class="p-4">
+                <div class="flex items-center justify-between mb-4">
+                  <h3 class="font-bold text-primary-600">
+                    {translate('programs.si.semester')} {sem.semester}
+                  </h3>
+                  <span class="text-sm text-gray-500">
+                    {sem.courses.reduce((acc, c) => acc + c.sks, 0)} SKS
+                  </span>
+                </div>
+                <ul class="space-y-2">
+                  {sem.courses.map((course) => (
+                    <li class="text-sm">
+                      <div class="flex justify-between items-start">
+                        <span class:list={[
+                          'flex-1',
+                          course.category === 'mkwu' && 'text-gray-500',
+                          course.category === 'core' && 'text-gray-700',
+                          course.category === 'project' && 'text-primary-600 font-medium',
+                          course.category === 'elective' && 'text-secondary-600',
+                          course.category === 'mbkm' && 'text-green-600',
+                          course.category === 'final' && 'text-primary-700 font-bold',
+                        ]}>
+                          {course.name}
+                        </span>
+                        <span class="text-gray-400 ml-2">{course.sks}</span>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Card>
+          ))}
+        </div>
+
+        <!-- Legend -->
+        <div class="flex flex-wrap justify-center gap-6 mt-8 text-sm">
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 bg-gray-400 rounded"></span>
+            <span class="text-gray-600">MKWU</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 bg-gray-700 rounded"></span>
+            <span class="text-gray-600">{translate('programs.si.legend_core')}</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 bg-primary-500 rounded"></span>
+            <span class="text-gray-600">{translate('programs.si.legend_project')}</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 bg-secondary-500 rounded"></span>
+            <span class="text-gray-600">{translate('programs.si.legend_elective')}</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 bg-green-500 rounded"></span>
+            <span class="text-gray-600">MBKM</span>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Career Paths -->
+  <Section background="gradient">
+    <Container>
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">
+            {translate('programs.si.careers_title')}
+          </h2>
+          <p class="text-lg text-gray-600">
+            {translate('programs.si.careers_subtitle')}
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {careerPaths.map((career) => (
+            <Card hover={true}>
+              <div class="p-6">
+                <h3 class="font-bold text-gray-900 mb-2">{career.title}</h3>
+                <p class="text-sm text-gray-600">{career.description}</p>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- CTA Section -->
+  <Section background="white">
+    <Container>
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">
+          {translate('programs.si.cta_title')}
+        </h2>
+        <p class="text-lg text-gray-600 mb-8">
+          {translate('programs.si.cta_subtitle')}
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a
+            href={localPath('/admissions')}
+            class="inline-flex items-center px-6 py-3 bg-primary-600 text-white font-semibold rounded-lg hover:bg-primary-700 transition-colors"
+          >
+            {translate('button.apply_now')}
+          </a>
+          <a
+            href={localPath('/contact')}
+            class="inline-flex items-center px-6 py-3 border-2 border-primary-600 text-primary-600 font-semibold rounded-lg hover:bg-primary-50 transition-colors"
+          >
+            {translate('button.free_consultation')}
+          </a>
+        </div>
+      </div>
+    </Container>
+  </Section>
+</MarketingLayout>
